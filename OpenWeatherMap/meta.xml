@@ -1,0 +1,11 @@
+<meta>
+	<info name="OpenWeatherMap" author="Kai Gillmann" shadowcopy="true" async="true" type="script" />        
+
+	<script src="bin\Release\OpenWeatherMap.dll" type="server" lang="compiled" />
+
+	<settings>
+		<setting name="owm_appId" value="" default="" description="Your OpenWeatherMap.org AppId" />
+		<setting name="owm_locationId" value="5368381" default="5368381" description="The LocationId from the OWM documentation. Default is Los Angeles." />
+		<setting name="owm_updateInterval" value="107" default="107" description="How often should the weather be updated in seconds. Free account has max 60 requests per minute. I chose a weird number so the players wont feel the interval that easy. In the price list it says: Weather API data update in less than 2h, so I assume you could set a higher value." />
+	</settings>
+</meta>
