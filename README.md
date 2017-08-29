@@ -20,3 +20,7 @@ Send OWM_GET_FORECAST with no content. You will receive OWM_FORECAST with a seri
 ## Contribution
 
 If you find bugs, just tell me. If you'd like to improve or extend the code, just fork this repo and share it back.
+
+## Support
+
+I made this gamemode for fun. If you'd like to support somebody, support the guys and gals which made the server software at https://gt-mp.net/
