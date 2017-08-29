@@ -7,10 +7,11 @@ Gamemode for setting ingame weather to real weather of a city of your choice in 
 ## Installation
 
 1. Place the OpenWeatherMap folder in the resources directory
-2. Edit settings.xml and add
+2. I tend to compile every gamemode. With current meta.xml you'll have to compile the code in release mode or modify the meta.xml to use the source files directly.
+3. Edit settings.xml and add
 ```<resource src="OpenWeatherMap" />```
-3. Sign up at http://openweathermap.org/ and get an appid
-4. Edit meta.xml and set the value of setting name="owm_appId"
+4. Sign up at http://openweathermap.org/ and get an appid
+5. Edit meta.xml and set the value of setting name="owm_appId"
 
 ## Using Forecasts
 
