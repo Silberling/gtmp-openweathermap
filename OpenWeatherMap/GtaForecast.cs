@@ -8,10 +8,12 @@ namespace OpenWeatherMap
 {
     class GtaForecast
     {
+        public string units;
         public ICollection<GtaForecastEntry> entries;
 
-        public GtaForecast()
+        public GtaForecast(string units)
         {
+            this.units = units;
             entries = new List<GtaForecastEntry>();
         }
     }

@@ -24,16 +24,16 @@ namespace OpenWeatherMap.OpenWeatherMap
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<Weather> GetCurrentWeather(int locationId)
+        public async Task<Weather> GetCurrentWeather(int locationId, string units)
         {
-            Task<string> result = client.GetStringAsync("http://api.openweathermap.org/data/2.5/weather?id=" + locationId + "&appid=" + appId + "&units=metric");
+            Task<string> result = client.GetStringAsync("http://api.openweathermap.org/data/2.5/weather?id=" + locationId + "&appid=" + appId + "&units=" + units);
             string json = await result;
             return JsonConvert.DeserializeObject<Weather>(json, Globals.DefaultJsonSerializerSettings);
         }
 
-        public async Task<Forecast> GetDailyForecast(int locationId)
+        public async Task<Forecast> GetDailyForecast(int locationId, string units)
         {
-            Task<string> result = client.GetStringAsync("http://api.openweathermap.org/data/2.5/forecast/daily?id=" + locationId + "&appid=" + appId + "&units=metric");
+            Task<string> result = client.GetStringAsync("http://api.openweathermap.org/data/2.5/forecast/daily?id=" + locationId + "&appid=" + appId + "&units=" + units);
             string json = await result;
             return JsonConvert.DeserializeObject<Forecast>(json, Globals.DefaultJsonSerializerSettings);
         }

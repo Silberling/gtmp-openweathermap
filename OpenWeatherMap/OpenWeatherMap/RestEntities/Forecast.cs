@@ -17,7 +17,6 @@ namespace OpenWeatherMap.OpenWeatherMap.RestEntities
 
         public class City
         {
-#pragma warning disable 0649
             public int id;
             public string name;
             public Coordinate coord;
@@ -39,7 +38,6 @@ namespace OpenWeatherMap.OpenWeatherMap.RestEntities
 
         public class TemperatureEntry
         {
-#pragma warning disable 0649
             public float day;
             public float min;
             public float max;

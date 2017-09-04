@@ -82,7 +82,7 @@ namespace OpenWeatherMap
         {
             Forecast nextForecast = GetCurrentLiveForecast().Result;
 
-            GtaForecast forecast = new GtaForecast();
+            GtaForecast forecast = new GtaForecast(settings.OWMUnits);
 
             foreach(ForecastEntry fe in nextForecast.list)
             {
@@ -201,12 +201,12 @@ namespace OpenWeatherMap
 
         private async Task<Forecast> GetCurrentLiveForecast()
         {
-            return await weather.GetDailyForecast(settings.OWMLocationId);
+            return await weather.GetDailyForecast(settings.OWMLocationId, settings.OWMUnits);
         }
 
         private async Task<Weather> GetCurrentLiveWeather()
         {
-            return await weather.GetCurrentWeather(settings.OWMLocationId);
+            return await weather.GetCurrentWeather(settings.OWMLocationId, settings.OWMUnits);
         }
     }
 }

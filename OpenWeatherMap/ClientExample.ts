@@ -1,6 +1,7 @@
 ﻿/// <reference path="types-gt-mp/index.d.ts" />
 
 class GtaForecast {
+	public units: string;
 	public entries: GtaForecastEntry[];
 }
 
@@ -46,6 +47,12 @@ API.onServerEventTrigger.connect((eventName: string, _arguments: any[]): void =>
 			const forecast: GtaForecast = JSON.parse(_arguments[0]);
 			const todayDate: number = (new Date()).getDate();
 
+			let unitShort: string = "";
+			switch (forecast.units) {
+				case "metric":		unitShort = "C";	break;
+				case "imperial":	unitShort = "F";	break;
+			}
+
 			let todayIndex = 0;
 			for (let i = 0; i < forecast.entries.length; i++) {
 				if (forecast.entries[i].dateTime.getDate() == todayDate) {
@@ -54,15 +61,19 @@ API.onServerEventTrigger.connect((eventName: string, _arguments: any[]): void =>
 				}
 			}
 
-			sendWeatherNotification("today", forecast.entries[todayIndex]);
-			sendWeatherNotification("tomorrow", forecast.entries[todayIndex + 1]);
-			sendWeatherNotification(Weekdays[forecast.entries[todayIndex + 2].dateTime.getDay()], forecast.entries[todayIndex + 2]);
-			sendWeatherNotification(Weekdays[forecast.entries[todayIndex + 3].dateTime.getDay()], forecast.entries[todayIndex + 3]);
+			sendWeatherNotification("Today", forecast.entries[todayIndex], unitShort);
+			sendWeatherNotification("Tomorrow", forecast.entries[todayIndex + 1], unitShort);
+			sendWeatherNotification(Weekdays[forecast.entries[todayIndex + 2].dateTime.getDay()], forecast.entries[todayIndex + 2], unitShort);
+			sendWeatherNotification(Weekdays[forecast.entries[todayIndex + 3].dateTime.getDay()], forecast.entries[todayIndex + 3], unitShort);
 			
 			break;
 	}
 });
 
-function sendWeatherNotification(when: string, forecastEntry: GtaForecastEntry): void {
-	API.sendNotification("Weather " + when + ": " + forecastEntry.state + " with temperatures between " + forecastEntry.dayTemp.toFixed(0) + "°C and " + forecastEntry.nightTemp.toFixed(0) + "°C");
+function degreeToString(degree: number, unitShort: string) {
+	return degree.toFixed(0) + "°" + unitShort;
+}
+
+function sendWeatherNotification(when: string, forecastEntry: GtaForecastEntry, unitShort: string): void {
+	API.sendNotification("Weather " + when + ": " + forecastEntry.state + " with temperatures between " + degreeToString(forecastEntry.dayTemp, unitShort) + " and " + degreeToString(forecastEntry.nightTemp, unitShort));
 }
