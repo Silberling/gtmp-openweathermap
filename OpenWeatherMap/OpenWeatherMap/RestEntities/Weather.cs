@@ -9,6 +9,7 @@ namespace OpenWeatherMap.OpenWeatherMap.RestEntities
 {
     class Weather
     {
+#pragma warning disable 0649
         public Coordinate coord;
         public ICollection<WeatherCondition> weather;
         [JsonProperty("base")]

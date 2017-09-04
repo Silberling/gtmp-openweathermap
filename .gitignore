@@ -6,3 +6,7 @@
 *TemporaryGeneratedFile_*
 **/obj/
 **/bin/
+**/.vs/
+*.sln
+packages/
+*.js

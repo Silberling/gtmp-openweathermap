@@ -23,6 +23,8 @@ namespace OpenWeatherMap
 
         GtaForecast forecast;
 
+        Settings settings;
+
         public Main()
         {
             Globals.DefaultJsonSerializerSettings.Converters.Add(new UnixTimestampConverter());
@@ -34,17 +36,19 @@ namespace OpenWeatherMap
 
         public void OnResourceStart()
         {
-            weather = new OpenWeatherMap.OpenWeatherMap(API.getSetting<string>("owm_appId"));
+            settings = new Settings(API);
+
+            weather = new OpenWeatherMap.OpenWeatherMap(settings.OWMAppId);
 
             weatherTimer = new Timer((e) =>
             {
                 SyncWeather();
-            }, null, TimeSpan.Zero, TimeSpan.FromSeconds(Int32.Parse(API.getSetting<string>("owm_updateInterval"))));
+            }, null, TimeSpan.Zero, TimeSpan.FromSeconds(settings.OWMUpdateInterval));
 
             forecastTimer = new Timer((e) =>
             {
                 GetForecast();
-                //foreach(var i in forecast.entries)
+                //foreach (var i in forecast.entries)
                 //{
                 //    API.shared.consoleOutput(LogCat.Debug, "Forecast: " + i.state.ToString() + "(" + i.dayTemp + " > " + i.nightTemp + ") " + i.dateTime);
                 //}
@@ -197,12 +201,12 @@ namespace OpenWeatherMap
 
         private async Task<Forecast> GetCurrentLiveForecast()
         {
-            return await weather.GetDailyForecast(Int32.Parse(API.getSetting<string>("owm_locationId")));
+            return await weather.GetDailyForecast(settings.OWMLocationId);
         }
 
         private async Task<Weather> GetCurrentLiveWeather()
         {
-            return await weather.GetCurrentWeather(Int32.Parse(API.getSetting<string>("owm_locationId")));
+            return await weather.GetCurrentWeather(settings.OWMLocationId);
         }
     }
 }

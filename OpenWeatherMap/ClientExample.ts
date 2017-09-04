@@ -44,10 +44,11 @@ API.onServerEventTrigger.connect((eventName: string, _arguments: any[]): void =>
 	switch (eventName) {
 		case 'OWM_FORECAST':
 			const forecast: GtaForecast = JSON.parse(_arguments[0]);
+			const todayDate: number = (new Date()).getDate();
 
 			let todayIndex = 0;
 			for (let i = 0; i < forecast.entries.length; i++) {
-				if (forecast.entries[0].dateTime.getDate() == (new Date()).getDate()) {
+				if (forecast.entries[i].dateTime.getDate() == todayDate) {
 					todayIndex = i;
 					break;
 				}
